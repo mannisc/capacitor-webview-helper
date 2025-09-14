@@ -1,22 +1,27 @@
 package blue.schmidbartl.capacitorwebviewhelper;
 
+import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import com.getcapacitor.JSObject;
 import com.getcapacitor.Plugin;
 import com.getcapacitor.PluginCall;
-import com.getcapacitor.PluginMethod;
-import com.getcapacitor.annotation.CapacitorPlugin;
 
-@CapacitorPlugin(name = "WebViewHelper")
 public class WebViewHelperPlugin extends Plugin {
 
-    private WebViewHelper implementation = new WebViewHelper();
+    public void setHeight(PluginCall call) {
+        Integer height = call.getInt("height");
 
-    @PluginMethod
-    public void echo(PluginCall call) {
-        String value = call.getString("value");
-
-        JSObject ret = new JSObject();
-        ret.put("value", implementation.echo(value));
-        call.resolve(ret);
+        getActivity().runOnUiThread(() -> {
+            FrameLayout rootView = (FrameLayout) getActivity().getWindow().getDecorView()
+                    .findViewById(android.R.id.content);
+            if (rootView != null) {
+                ViewGroup.LayoutParams params = rootView.getLayoutParams();
+                params.height = height != null ? height : ViewGroup.LayoutParams.MATCH_PARENT;
+                rootView.setLayoutParams(params);
+            }
+            JSObject ret = new JSObject();
+            ret.put("success", true);
+            call.resolve(ret);
+        });
     }
 }
