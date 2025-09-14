@@ -1,25 +1,26 @@
-import Foundation
 import Capacitor
-
-/**
- * Please read the Capacitor iOS Plugin Development Guide
- * here: https://capacitorjs.com/docs/plugins/ios
- */
+import Foundation
+import UIKit
 
 @objc(WebViewHelperPlugin)
 public class WebViewHelperPlugin: CAPPlugin {
 
     @objc func setHeight(_ call: CAPPluginCall) {
-        let height = call.getInt("height") // optional, in points
+        let cssHeight = call.getInt("height")  // in CSS px (like Android)
 
         DispatchQueue.main.async {
             if let rootView = self.bridge?.viewController?.view {
                 var frame = rootView.frame
-                if let h = height {
-                    frame.size.height = CGFloat(h)
+
+                if let h = cssHeight {
+                    // Convert CSS px to iOS points
+                    let scale = UIScreen.main.scale
+                    let points = CGFloat(h) / scale
+                    frame.size.height = points
                 } else {
                     frame.size.height = UIScreen.main.bounds.height
                 }
+
                 rootView.frame = frame
             }
 
@@ -27,5 +28,12 @@ public class WebViewHelperPlugin: CAPPlugin {
                 "success": true
             ])
         }
+    }
+
+    @objc func echo(_ call: CAPPluginCall) {
+        let value = call.getString("value") ?? ""
+        call.resolve([
+            "value": value
+        ])
     }
 }
