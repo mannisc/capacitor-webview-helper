@@ -1,0 +1,1 @@
+{"version":3,"file":"definitions.js","sourceRoot":"","sources":["../../src/definitions.ts"],"names":[],"mappings":"","sourcesContent":["export interface WebViewHelperPlugin {\n  echo(options: { value: string }): Promise<{ value: string }>;\n  setHeight(options: { height?: number }): Promise<{ success: boolean }>;\n}\n"]}

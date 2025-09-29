@@ -1,0 +1,47 @@
+{
+  "api": {
+    "name": "WebViewHelperPlugin",
+    "slug": "webviewhelperplugin",
+    "docs": "",
+    "tags": [],
+    "methods": [
+      {
+        "name": "echo",
+        "signature": "(options: { value: string; }) => Promise<{ value: string; }>",
+        "parameters": [
+          {
+            "name": "options",
+            "docs": "",
+            "type": "{ value: string; }"
+          }
+        ],
+        "returns": "Promise<{ value: string; }>",
+        "tags": [],
+        "docs": "",
+        "complexTypes": [],
+        "slug": "echo"
+      },
+      {
+        "name": "setHeight",
+        "signature": "(options: { height?: number; }) => Promise<{ success: boolean; }>",
+        "parameters": [
+          {
+            "name": "options",
+            "docs": "",
+            "type": "{ height?: number | undefined; }"
+          }
+        ],
+        "returns": "Promise<{ success: boolean; }>",
+        "tags": [],
+        "docs": "",
+        "complexTypes": [],
+        "slug": "setheight"
+      }
+    ],
+    "properties": []
+  },
+  "interfaces": [],
+  "enums": [],
+  "typeAliases": [],
+  "pluginConfigs": []
+}
